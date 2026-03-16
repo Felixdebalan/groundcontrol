@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ground Control — Claim Your Territory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- No external map library needed — using iframe embeds -->
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#0f0f0f;--surface:#1a1a1a;--sh:#222;
+--accent:#f5a623;--text:#f0ede8;--muted:#888;
+--border:#2a2a2a;--success:#2ecc71;--danger:#e74c3c;
+--t1:#888;--t2:#5b9bd5;--t3:#f5a623;--t4:#e74c3c;
+--fh:'Barlow Condensed',sans-serif;--fb:'Inter',sans-serif;
+--tr:200ms ease}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:400;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+#header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(15,15,15,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--accent);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--fh);font-weight:800;font-size:22px;color:var(--accent);letter-spacing:2px;text-transform:uppercase}
+.hphone{font-family:'Courier New',monospace;font-size:16px;color:var(--accent);letter-spacing:1px;font-weight:600}
+
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px 60px;position:relative}
+#hero::before{content:'';position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(245,166,35,.06) 0%,transparent 70%);pointer-events:none}
+.hh{font-family:var(--fh);font-weight:800;font-size:clamp(40px,7vw,80px);line-height:1.05;max-width:800px;text-transform:uppercase;letter-spacing:1px;margin-bottom:20px;position:relative}
+.hsub{font-size:clamp(15px,2vw,18px);color:var(--muted);max-width:560px;margin-bottom:48px;line-height:1.7}
+.hstats{display:flex;gap:40px;flex-wrap:wrap;justify-content:center;margin-bottom:48px}
+.hs-num{font-family:var(--fh);font-weight:700;font-size:42px;color:var(--accent);display:block}
+.hs-lbl{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:2px}
+.scroll-cue{margin-top:20px;animation:bounce 2s infinite;color:var(--muted);font-size:28px;cursor:pointer;user-select:none}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+
+#dir{padding:60px 24px 80px}
+.dh{text-align:center;margin-bottom:32px}
+.dt{font-family:var(--fh);font-weight:700;font-size:36px;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.ds{color:var(--muted);font-size:15px}
+
+.cnav{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:950px;margin:0 auto 20px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.cnav-btn{padding:5px 10px;font-size:11px;font-family:var(--fh);font-weight:700;text-transform:uppercase;letter-spacing:1px;background:var(--surface);border:1px solid var(--border);border-radius:4px;color:var(--muted);cursor:pointer;transition:all var(--tr);white-space:nowrap}
+.cnav-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+.ctrls{max-width:720px;margin:0 auto 12px;position:sticky;top:56px;z-index:800;background:rgba(15,15,15,.97);backdrop-filter:blur(12px);padding:12px 0;display:flex;gap:10px;align-items:center}
+.fw{flex:1;position:relative}
+#fi{width:100%;padding:12px 16px 12px 38px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--fb);font-size:14px;outline:none;transition:border-color var(--tr)}
+#fi::placeholder{color:var(--muted)}
+#fi:focus{border-color:var(--accent)}
+.fi-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px;pointer-events:none}
+#ss{padding:12px 10px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--fb);font-size:12px;outline:none;cursor:pointer}
+.fc{text-align:center;font-size:12px;color:var(--muted);margin-bottom:16px}
+.fc span{color:var(--accent);font-weight:600}
+
+.dl{display:flex;gap:24px;max-width:1200px;margin:0 auto;align-items:flex-start}
+.td{flex:1;min-width:0}
+.cg{margin-bottom:4px;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--surface)}
+.cg.hid{display:none}
+.ch{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;cursor:pointer;transition:background var(--tr);user-select:none}
+.ch:hover{background:var(--sh)}
+.ch-l{display:flex;align-items:center;gap:10px}
+.chev{color:var(--muted);font-size:11px;transition:transform var(--tr);width:14px}
+.cg.open .chev{transform:rotate(90deg)}
+.cn{font-family:var(--fh);font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:1.5px}
+.cc{font-size:12px;color:var(--muted);font-family:var(--fb)}
+.ch-r{font-size:11px;color:var(--muted)}
+.ch-r .av{color:var(--success)}
+.ct{max-height:0;overflow:hidden;transition:max-height 350ms ease}
+.cg.open .ct{max-height:9999px}
+
+.tr{display:flex;justify-content:space-between;align-items:center;padding:9px 16px 9px 40px;cursor:pointer;transition:background var(--tr);border-top:1px solid rgba(42,42,42,.4)}
+.tr:hover{background:var(--sh)}
+.tr.sel{background:rgba(245,166,35,.1)}
+.tr.hid{display:none}
+.tn{font-size:13px;font-weight:500;flex:1;min-width:0}
+.tn .zips{font-size:11px;color:var(--muted);font-weight:400;margin-left:6px}
+.tm{display:flex;align-items:center;gap:10px;font-size:12px;flex-shrink:0}
+.tt{padding:2px 7px;border-radius:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;font-size:10px}
+.tt.t1{background:var(--t1);color:#fff}.tt.t2{background:var(--t2);color:#fff}.tt.t3{background:var(--t3);color:#000}.tt.t4{background:var(--t4);color:#fff}
+.tp{color:var(--muted);font-weight:500;white-space:nowrap}
+.sd{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.sd.a{background:var(--success);box-shadow:0 0 6px rgba(46,204,113,.4)}.sd.c{background:var(--danger)}
+
+/* TERRITORY CARD */
+.tpanel{width:380px;flex-shrink:0;position:sticky;top:110px}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;display:none}
+.tcard.vis{display:block}
+.tph{display:flex;align-items:center;justify-content:center;min-height:300px;color:var(--muted);font-size:14px;text-align:center;background:var(--surface);border:1px dashed var(--border);border-radius:12px;padding:28px;line-height:1.8}
+
+.tc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;gap:10px}
+.tc-name{font-family:var(--fh);font-weight:700;font-size:24px;text-transform:uppercase;letter-spacing:1px;line-height:1.2}
+.tc-badge{font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.tc-badge.t1{background:var(--t1);color:#fff}.tc-badge.t2{background:var(--t2);color:#fff}.tc-badge.t3{background:var(--t3);color:#000}.tc-badge.t4{background:var(--t4);color:#fff}
+.tc-county{font-size:12px;color:var(--muted);margin-bottom:4px}
+.tc-zips{font-size:12px;color:var(--accent);margin-bottom:16px}
+.tc-div{border:none;border-top:1px solid var(--border);margin:12px 0}
+.tc-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}
+.tc-lbl{color:var(--muted)}.tc-val{font-weight:500}
+.tc-price-box{margin:16px 0;padding:16px;background:rgba(245,166,35,.05);border:1px solid rgba(245,166,35,.15);border-radius:8px}
+.tc-price{font-family:var(--fh);font-weight:700;font-size:28px;color:var(--accent)}
+.tc-annual{font-size:12px;color:var(--muted)}.tc-annual span{color:var(--success);font-weight:500}
+.tc-status{display:flex;align-items:center;gap:8px;margin:12px 0;font-size:13px;font-weight:500}
+.st-dot{width:8px;height:8px;border-radius:50%}
+.st-dot.a{background:var(--success);box-shadow:0 0 8px rgba(46,204,113,.4)}.st-dot.c{background:var(--danger)}
+
+
+.btn-claim{width:100%;padding:13px;font-family:var(--fh);font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:2px;border:none;border-radius:8px;cursor:pointer;transition:all var(--tr)}
+.btn-claim.a{background:var(--accent);color:#000}.btn-claim.a:hover{background:#ffb838;transform:translateY(-1px);box-shadow:0 4px 20px rgba(245,166,35,.3)}
+.btn-claim.c{background:transparent;color:var(--muted);border:1px solid var(--border)}.btn-claim.c:hover{border-color:var(--muted);color:var(--text)}
+
+/* HOW IT WORKS, PRICING, FOOTER */
+#hiw{padding:100px 24px;text-align:center}
+.st{font-family:var(--fh);font-weight:700;font-size:36px;text-transform:uppercase;letter-spacing:2px;margin-bottom:60px}
+.steps{display:flex;gap:40px;max-width:900px;margin:0 auto}
+.step{flex:1;text-align:center}
+.step-n{font-family:var(--fh);font-weight:800;font-size:48px;color:var(--accent);line-height:1;margin-bottom:16px}
+.step-t{font-family:var(--fh);font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.step-d{font-size:14px;color:var(--muted);line-height:1.6}
+
+#pricing{padding:60px 24px 100px}
+.tg{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1000px;margin:0 auto}
+.tc2{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px 20px;text-align:center;transition:border-color var(--tr),transform var(--tr)}
+.tc2:hover{border-color:var(--accent);transform:translateY(-4px)}
+.tc2-l{font-family:var(--fh);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px}
+.tc2:nth-child(1) .tc2-l{color:var(--t1)}.tc2:nth-child(2) .tc2-l{color:var(--t2)}.tc2:nth-child(3) .tc2-l{color:var(--t3)}.tc2:nth-child(4) .tc2-l{color:var(--t4)}
+.tc2-r{font-size:12px;color:var(--muted);margin-bottom:16px}
+.tc2-p{font-family:var(--fh);font-weight:700;font-size:30px;margin-bottom:12px}
+.tc2-d{font-size:12px;color:var(--muted);line-height:1.5}
+.pn{text-align:center;font-size:13px;color:var(--muted);margin-top:28px;font-style:italic}
+
+#footer{border-top:1px solid var(--accent);padding:24px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);flex-wrap:wrap;gap:12px}
+
+/* MODAL */
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);z-index:2000;display:none;align-items:center;justify-content:center;padding:24px}
+.mo.act{display:flex}
+.mc{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:36px;width:100%;max-width:440px;position:relative}
+.mx{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--muted);font-size:24px;cursor:pointer;line-height:1}
+.mx:hover{color:var(--text)}
+.mt{font-family:var(--fh);font-weight:700;font-size:24px;text-transform:uppercase;letter-spacing:1px;margin-bottom:24px}
+.mf{margin-bottom:16px}
+.mf label{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.mf input{width:100%;padding:11px 14px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--fb);font-size:14px;outline:none}
+.mf input:focus{border-color:var(--accent)}
+.mf input[readonly]{color:var(--accent);font-weight:500}
+.mbtn{width:100%;padding:13px;margin-top:8px;font-family:var(--fh);font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:2px;background:var(--accent);color:#000;border:none;border-radius:8px;cursor:pointer}
+.mbtn:hover{background:#ffb838}
+.msuc{display:none;text-align:center;padding:20px 0}
+.msuc .ck{font-size:48px;margin-bottom:16px;color:var(--success)}
+.msuc .hl{color:var(--accent);font-weight:600}
+
+@media(max-width:900px){.dl{flex-direction:column}.tpanel{width:100%;position:static}.tg{grid-template-columns:repeat(2,1fr)}.steps{flex-direction:column;gap:32px}}
+@media(max-width:600px){.hh{font-size:36px}.tg{grid-template-columns:1fr}#footer{flex-direction:column;text-align:center}.hphone{font-size:13px}.cnav{gap:4px}.cnav-btn{padding:4px 7px;font-size:10px}}
+</style>
+</head>
+<body>
+
+<header id="header"><div class="logo">Ground Control</div><div class="hphone">866-SEALCOAT</div></header>
+
+<section id="hero">
+<h1 class="hh">Claim Your Territory Before Someone Else Does</h1>
+<p class="hsub">One contractor per town. Exclusive inbound leads routed directly to you via 866-SEALCOAT.</p>
+<div class="hstats">
+<div><span class="hs-num">564</span><span class="hs-lbl">NJ Towns</span></div>
+<div><span class="hs-num">1</span><span class="hs-lbl">Contractor Per Town</span></div>
+<div><span class="hs-num">21</span><span class="hs-lbl">Counties</span></div>
+<div><span class="hs-num" id="hero-claimed">0</span><span class="hs-lbl">Claimed</span></div>
+</div>
+<div class="scroll-cue" onclick="document.getElementById('dir').scrollIntoView({behavior:'smooth'})">&#8595;</div>
+</section>
+
+<section id="dir">
+<div class="dh"><div class="dt">Find Your Town</div><div class="ds">Every municipality in New Jersey. One contractor per town.</div></div>
+<div class="cnav" id="cnav"></div>
+<div class="ctrls">
+<div class="fw"><span class="fi-icon">&#x1F50D;</span><input type="text" id="fi" placeholder="Filter by town, county, or zip..." autocomplete="off" spellcheck="false"></div>
+<select id="ss"><option value="name">Sort: A–Z</option><option value="name-desc">Sort: Z–A</option><option value="price-asc">Price: Low–High</option><option value="price-desc">Price: High–Low</option><option value="tier-asc">Tier: 1–4</option><option value="tier-desc">Tier: 4–1</option></select>
+</div>
+<div class="fc">Showing <span id="vc">564</span> of 564 towns</div>
+<div class="dl">
+<div class="td" id="tdir"></div>
+<div class="tpanel">
+<div class="tcard" id="tcard">
+<div class="tc-head"><div class="tc-name" id="xn"></div><div class="tc-badge" id="xb"></div></div>
+<div class="tc-county" id="xco"></div>
+<div class="tc-zips" id="xz"></div>
+<div id="mini-map" style="width:100%;height:200px;border-radius:8px;margin:12px 0;border:1px solid var(--border);overflow:hidden;background:#1a1a1a"></div>
+<a id="xmap-link" href="#" target="_blank" rel="noopener" style="display:block;text-align:center;font-size:12px;color:var(--accent);margin-bottom:8px;text-decoration:none;opacity:0.8">View full coverage area &rarr;</a>
+<hr class="tc-div">
+<div class="tc-row"><span class="tc-lbl">Households</span><span class="tc-val" id="xh"></span></div>
+<div class="tc-row"><span class="tc-lbl">Median Home Value</span><span class="tc-val" id="xv"></span></div>
+<div class="tc-row"><span class="tc-lbl">Est. Monthly Leads</span><span class="tc-val" id="xl"></span></div>
+<div class="tc-price-box">
+<div class="tc-row"><span class="tc-lbl">Monthly</span><span class="tc-price" id="xm"></span></div>
+<div class="tc-row" style="margin:0"><span class="tc-lbl">Annual</span><span class="tc-annual" id="xy"></span></div>
+</div>
+<div class="tc-status" id="xs"></div>
+<button class="btn-claim" id="xbtn" onclick="openModal()"></button>
+</div>
+<div class="tph" id="tph">Select any town<br>to see territory details<br>and coverage map</div>
+</div>
+</div>
+</section>
+
+<section id="hiw">
+<h2 class="st">How It Works</h2>
+<div class="steps">
+<div class="step"><div class="step-n">01</div><div class="step-t">Find Your Town</div><div class="step-d">Browse by county or filter to find your territory's details and pricing.</div></div>
+<div class="step"><div class="step-n">02</div><div class="step-t">Claim Your Territory</div><div class="step-d">One contractor per town. It's yours until you cancel. No competition.</div></div>
+<div class="step"><div class="step-n">03</div><div class="step-t">Receive Exclusive Leads</div><div class="step-d">Every call to 866-SEALCOAT in your town routes directly to you.</div></div>
+</div>
+</section>
+
+<section id="pricing">
+<h2 class="st">Territory Pricing</h2>
+<div class="tg">
+<div class="tc2"><div class="tc2-l">Tier 1</div><div class="tc2-r">Under 5K homes</div><div class="tc2-p">$99<span style="font-size:16px;color:var(--muted)">/mo</span></div><div class="tc2-d">Small towns, rural areas. Low volume entry point.</div></div>
+<div class="tc2"><div class="tc2-l">Tier 2</div><div class="tc2-r">5K – 15K homes</div><div class="tc2-p">$199<span style="font-size:16px;color:var(--muted)">/mo</span></div><div class="tc2-d">Mid-size suburbs. Solid lead flow.</div></div>
+<div class="tc2"><div class="tc2-l">Tier 3</div><div class="tc2-r">15K – 40K homes</div><div class="tc2-p">$349<span style="font-size:16px;color:var(--muted)">/mo</span></div><div class="tc2-d">Established suburbs. High density.</div></div>
+<div class="tc2"><div class="tc2-l">Tier 4</div><div class="tc2-r">40K+ homes</div><div class="tc2-p">$599<span style="font-size:16px;color:var(--muted)">/mo</span></div><div class="tc2-d">Dense townships. Maximum volume.</div></div>
+</div>
+<div class="pn">Final price adjusts upward based on median home value in your area.</div>
+</section>
+
+<footer id="footer"><div>Ground Control IP LLC</div><div style="opacity:.6">Powered by Perpetual Concierge</div><div>866-SEALCOAT</div></footer>
+
+<div class="mo" id="modal">
+<div class="mc">
+<button class="mx" onclick="closeModal()">&times;</button>
+<div id="mfv">
+<div class="mt" id="mti">Claim Territory</div>
+<div class="mf"><label>Business Name</label><input type="text" id="mb" placeholder="Your company name"></div>
+<div class="mf"><label>Your Name</label><input type="text" id="mn" placeholder="Full name"></div>
+<div class="mf"><label>Phone</label><input type="tel" id="mp" placeholder="(555) 555-5555"></div>
+<div class="mf"><label>Email</label><input type="email" id="me" placeholder="you@company.com"></div>
+<div class="mf"><label>Town</label><input type="text" id="mto" readonly></div>
+<button class="mbtn" onclick="submitClaim()">Reserve My Territory &rarr;</button>
+</div>
+<div class="msuc" id="msuc"><div class="ck">&#10003;</div><p>You're on the list for <span class="hl" id="stn"></span>.<br>We'll reach out within 24 hours.</p></div>
+</div>
+</div>
+
+<script>
+/* PRICING */
+function gT(h){return h<5e3?1:h<15e3?2:h<4e4?3:4}
+function bP(t){return{1:99,2:199,3:349,4:599}[t]}
+function mlt(v){return v<3e5?1:v<5e5?1.2:v<75e4?1.4:1.6}
+function cP(h,v){return Math.round(bP(gT(h))*mlt(v))}
+function eL(h){return Math.max(1,Math.round(h/250))+'–'+Math.max(2,Math.round(h/150))}
+
+/* KNOWN TOWNS with lat/lng and zip codes */
+var K={
+"Newark":{h:104000,v:280000,la:40.735,lo:-74.172,z:"07101,07102,07103,07104,07105,07106,07107,07108,07112,07114"},
+"Jersey City":{h:112000,v:520000,la:40.728,lo:-74.077,z:"07302,07304,07305,07306,07307,07310"},
+"Paterson":{h:48000,v:260000,la:40.917,lo:-74.171,z:"07501,07502,07503,07504,07505,07513,07514"},
+"Elizabeth":{h:44000,v:310000,la:40.664,lo:-74.21,z:"07201,07202,07206,07208"},
+"Edison":{h:38000,v:480000,la:40.519,lo:-74.412,z:"08817,08818,08820,08837"},
+"Woodbridge":{h:36000,v:420000,la:40.557,lo:-74.284,z:"07001,07064,07067,07077,07095"},
+"Lakewood":{h:34000,v:310000,la:40.096,lo:-74.217,z:"08701"},
+"Toms River":{h:38000,v:360000,la:39.954,lo:-74.197,z:"08753,08755,08757"},
+"Hamilton":{h:34000,v:310000,la:40.227,lo:-74.667,z:"08610,08619,08620,08629,08690"},
+"Trenton":{h:34000,v:180000,la:40.217,lo:-74.743,z:"08608,08609,08611,08618,08638"},
+"Clifton":{h:32000,v:390000,la:40.859,lo:-74.164,z:"07011,07012,07013,07014"},
+"Camden":{h:30000,v:130000,la:39.926,lo:-75.12,z:"08101,08102,08103,08104,08105"},
+"Brick":{h:30000,v:340000,la:40.058,lo:-74.108,z:"08723,08724"},
+"Cherry Hill":{h:28000,v:380000,la:39.935,lo:-74.94,z:"08002,08003,08034"},
+"Passaic":{h:26000,v:310000,la:40.857,lo:-74.128,z:"07055"},
+"Middletown":{h:26000,v:450000,la:40.391,lo:-74.115,z:"07748"},
+"Union City":{h:26000,v:370000,la:40.771,lo:-74.032,z:"07087"},
+"Old Bridge":{h:24000,v:400000,la:40.415,lo:-74.365,z:"08857"},
+"Gloucester Twp":{h:24000,v:280000,la:39.829,lo:-74.962,z:"08012,08021,08029,08083"},
+"East Orange":{h:24000,v:270000,la:40.767,lo:-74.205,z:"07017,07018,07019"},
+"Bayonne":{h:24000,v:390000,la:40.669,lo:-74.114,z:"07002"},
+"North Bergen":{h:24000,v:420000,la:40.804,lo:-74.012,z:"07047"},
+"West New York":{h:22000,v:380000,la:40.788,lo:-74.014,z:"07093"},
+"Parsippany-Troy Hills":{h:20000,v:430000,la:40.858,lo:-74.409,z:"07034,07054"},
+"Hoboken":{h:26000,v:780000,la:40.744,lo:-74.033,z:"07030"},
+"Montclair":{h:16200,v:720000,la:40.826,lo:-74.209,z:"07042,07043"},
+"Summit":{h:8900,v:890000,la:40.716,lo:-74.365,z:"07901"},
+"Ridgewood":{h:10200,v:810000,la:40.979,lo:-74.117,z:"07450,07451"},
+"Millburn":{h:7600,v:940000,la:40.726,lo:-74.325,z:"07041,07078"},
+"Westfield":{h:12400,v:680000,la:40.659,lo:-74.347,z:"07090,07091"},
+"Wayne":{h:22000,v:450000,la:40.925,lo:-74.276,z:"07470"},
+"Hackensack":{h:18000,v:410000,la:40.886,lo:-74.043,z:"07601,07602"},
+"Teaneck":{h:14500,v:460000,la:40.898,lo:-74.016,z:"07666"},
+"Fort Lee":{h:16000,v:490000,la:40.851,lo:-73.971,z:"07024"},
+"Morristown":{h:7500,v:560000,la:40.797,lo:-74.481,z:"07960,07963"},
+"Princeton":{h:12000,v:750000,la:40.349,lo:-74.659,z:"08540,08542,08544"},
+"New Brunswick":{h:20000,v:320000,la:40.486,lo:-74.451,z:"08901,08903"},
+"Vineland":{h:24000,v:210000,la:39.486,lo:-75.026,z:"08360,08361"},
+"Atlantic City":{h:16000,v:180000,la:39.364,lo:-74.423,z:"08401"},
+"Asbury Park":{h:7000,v:340000,la:40.220,lo:-74.012,z:"07712"},
+"Piscataway":{h:20000,v:380000,la:40.549,lo:-74.461,z:"08854,08855"},
+"East Brunswick":{h:18000,v:420000,la:40.428,lo:-74.416,z:"08816"},
+"Sayreville":{h:16000,v:370000,la:40.459,lo:-74.361,z:"08871,08872"},
+"Howell":{h:19000,v:420000,la:40.148,lo:-74.209,z:"07731"},
+"Marlboro":{h:14000,v:520000,la:40.315,lo:-74.246,z:"07746"},
+"Manalapan":{h:15000,v:460000,la:40.283,lo:-74.337,z:"07726"},
+"Bridgewater":{h:16000,v:480000,la:40.596,lo:-74.605,z:"08807"},
+"Long Branch":{h:12000,v:360000,la:40.299,lo:-73.992,z:"07740"},
+"Red Bank":{h:5200,v:460000,la:40.347,lo:-74.064,z:"07701"},
+"Ocean City":{h:5000,v:520000,la:39.278,lo:-74.575,z:"08226"},
+"Linden":{h:16000,v:330000,la:40.622,lo:-74.245,z:"07036"},
+"Cranford":{h:9000,v:480000,la:40.656,lo:-74.299,z:"07016"},
+"Livingston":{h:10000,v:620000,la:40.788,lo:-74.315,z:"07039"},
+"Jackson":{h:22000,v:360000,la:40.099,lo:-74.354,z:"08527"},
+"Bloomfield":{h:18000,v:380000,la:40.807,lo:-74.186,z:"07003"},
+"West Orange":{h:18000,v:450000,la:40.799,lo:-74.239,z:"07052"},
+"Irvington":{h:22000,v:250000,la:40.732,lo:-74.235,z:"07111"},
+"Kearny":{h:14000,v:380000,la:40.764,lo:-74.145,z:"07032"},
+"Perth Amboy":{h:18000,v:290000,la:40.507,lo:-74.265,z:"08861,08862"},
+"Plainfield":{h:16000,v:280000,la:40.634,lo:-74.407,z:"07060,07062,07063"},
+"Sparta":{h:7000,v:420000,la:41.035,lo:-74.636,z:"07871"},
+"Evesham":{h:18000,v:350000,la:39.862,lo:-74.886,z:"08053"},
+"Mount Laurel":{h:17000,v:340000,la:39.934,lo:-74.891,z:"08054"},
+"Moorestown":{h:7500,v:460000,la:39.969,lo:-74.949,z:"08057"}
+};
+
+var claimedSet=new Set(); // 0 claimed — real numbers
+
+var ctyDef={"Atlantic":{h:4200,v:240000,la:39.45,lo:-74.57},"Bergen":{h:5800,v:480000,la:40.96,lo:-74.07},"Burlington":{h:5500,v:310000,la:39.88,lo:-74.83},"Camden":{h:5200,v:260000,la:39.90,lo:-74.97},"Cape May":{h:3800,v:340000,la:39.10,lo:-74.82},"Cumberland":{h:4000,v:190000,la:39.37,lo:-75.13},"Essex":{h:8000,v:380000,la:40.78,lo:-74.22},"Gloucester":{h:5000,v:280000,la:39.72,lo:-75.14},"Hudson":{h:12000,v:420000,la:40.74,lo:-74.06},"Hunterdon":{h:3200,v:440000,la:40.56,lo:-74.91},"Mercer":{h:7000,v:350000,la:40.28,lo:-74.70},"Middlesex":{h:8000,v:380000,la:40.44,lo:-74.39},"Monmouth":{h:5500,v:420000,la:40.29,lo:-74.12},"Morris":{h:5000,v:460000,la:40.86,lo:-74.54},"Ocean":{h:6000,v:320000,la:39.94,lo:-74.20},"Passaic":{h:8000,v:340000,la:40.99,lo:-74.30},"Salem":{h:2800,v:210000,la:39.58,lo:-75.35},"Somerset":{h:5500,v:420000,la:40.56,lo:-74.62},"Sussex":{h:3500,v:310000,la:41.13,lo:-74.69},"Union":{h:8000,v:380000,la:40.66,lo:-74.31},"Warren":{h:3000,v:280000,la:40.86,lo:-75.01}};
+
+var counties={"Atlantic":["Absecon","Atlantic City","Brigantine","Buena","Buena Vista","Corbin City","Egg Harbor City","Egg Harbor Twp","Estell Manor","Folsom","Galloway","Hamilton Twp","Hammonton","Linwood","Longport","Margate City","Mullica","Northfield","Pleasantville","Port Republic","Somers Point","Ventnor City","Weymouth"],"Bergen":["Allendale","Alpine","Bergenfield","Bogota","Carlstadt","Cliffside Park","Closter","Cresskill","Demarest","Dumont","Elmwood Park","East Rutherford","Edgewater","Emerson","Englewood","Englewood Cliffs","Fair Lawn","Fairview","Fort Lee","Franklin Lakes","Garfield","Glen Rock","Hackensack","Harrington Park","Hasbrouck Heights","Haworth","Hillsdale","Ho-Ho-Kus","Leonia","Little Ferry","Lodi","Lyndhurst","Mahwah","Maywood","Midland Park","Montvale","Moonachie","New Milford","North Arlington","Northvale","Norwood","Oakland","Old Tappan","Oradell","Palisades Park","Paramus","Park Ridge","Ramsey","Ridgefield","Ridgefield Park","Ridgewood","River Edge","River Vale","Rochelle Park","Rockleigh","Rutherford","Saddle Brook","Saddle River","South Hackensack","Teaneck","Tenafly","Teterboro","Upper Saddle River","Waldwick","Wallington","Washington Twp","Westwood","Woodcliff Lake","Wood-Ridge","Wyckoff"],"Burlington":["Bass River","Beverly","Bordentown","Bordentown Twp","Burlington City","Burlington Twp","Chesterfield","Cinnaminson","Delanco","Delran","Eastampton","Edgewater Park","Evesham","Fieldsboro","Florence","Hainesport","Lumberton","Mansfield","Maple Shade","Medford","Medford Lakes","Moorestown","Mount Holly","Mount Laurel","New Hanover","North Hanover","Palmyra","Pemberton","Pemberton Twp","Riverside","Riverton","Shamong","Southampton","Springfield","Tabernacle","Washington Twp","Westampton","Willingboro","Woodland","Wrightstown"],"Camden":["Audubon","Audubon Park","Barrington","Bellmawr","Berlin","Berlin Twp","Brooklawn","Camden","Cherry Hill","Chesilhurst","Clementon","Collingswood","Gibbsboro","Gloucester City","Gloucester Twp","Haddon Twp","Haddonfield","Haddon Heights","Hi-Nella","Laurel Springs","Lawnside","Lindenwold","Magnolia","Merchantville","Mount Ephraim","Oaklyn","Pennsauken","Pine Hill","Pine Valley","Runnemede","Somerdale","Stratford","Tavistock","Voorhees","Waterford","Winslow","Woodlynne"],"Cape May":["Avalon","Cape May","Cape May Point","Dennis","Lower Twp","Middle Twp","Ocean City","Sea Isle City","Stone Harbor","Upper Twp","West Cape May","West Wildwood","Wildwood","Wildwood Crest","Woodbine"],"Cumberland":["Bridgeton","Commercial","Deerfield","Downe","Fairfield","Greenwich","Hopewell","Lawrence","Maurice River","Millville","Shiloh","Stow Creek","Upper Deerfield","Vineland"],"Essex":["Belleville","Bloomfield","Caldwell","Cedar Grove","East Orange","Essex Fells","Fairfield","Glen Ridge","Irvington","Livingston","Maplewood","Millburn","Montclair","Newark","North Caldwell","Nutley","Orange","Roseland","South Orange","Verona","West Caldwell","West Orange"],"Gloucester":["Clayton","Deptford","East Greenwich","Elk","Franklin Twp","Glassboro","Greenwich","Harrison","Logan","Mantua","Monroe","National Park","Newfield","Paulsboro","Pitman","South Harrison","Swedesboro","Washington Twp","Wenonah","West Deptford","Westville","Woodbury","Woodbury Heights","Woolwich"],"Hudson":["Bayonne","East Newark","Guttenberg","Harrison","Hoboken","Jersey City","Kearny","North Bergen","Secaucus","Union City","Weehawken","West New York"],"Hunterdon":["Alexandria","Bethlehem","Bloomsbury","Califon","Clinton","Clinton Twp","Delaware","East Amwell","Flemington","Franklin Twp","Frenchtown","Glen Gardner","Hampton","High Bridge","Holland","Kingwood","Lambertville","Lebanon","Lebanon Twp","Milford","Raritan Twp","Readington","Stockton","Tewksbury","Union Twp","West Amwell"],"Mercer":["East Windsor","Ewing","Hamilton","Hightstown","Hopewell","Hopewell Twp","Lawrence","Pennington","Princeton","Trenton","Washington Twp","West Windsor"],"Middlesex":["Carteret","Cranbury","Dunellen","East Brunswick","Edison","Helmetta","Highland Park","Jamesburg","Old Bridge","Metuchen","Middlesex","Milltown","Monroe","New Brunswick","North Brunswick","Perth Amboy","Piscataway","Plainsboro","Sayreville","South Amboy","South Brunswick","South Plainfield","South River","Spotswood","Woodbridge"],"Monmouth":["Allenhurst","Allentown","Asbury Park","Atlantic Highlands","Avon-by-the-Sea","Belmar","Bradley Beach","Brielle","Colts Neck","Deal","Eatontown","Englishtown","Fair Haven","Farmingdale","Freehold","Freehold Twp","Highlands","Holmdel","Howell","Interlaken","Keansburg","Keyport","Little Silver","Loch Arbour","Long Branch","Manalapan","Manasquan","Marlboro","Matawan","Aberdeen","Middletown","Millstone","Monmouth Beach","Neptune","Neptune City","Tinton Falls","Ocean Twp","Oceanport","Hazlet","Red Bank","Roosevelt","Rumson","Sea Bright","Sea Girt","Shrewsbury","Shrewsbury Twp","Lake Como","Spring Lake","Spring Lake Heights","Union Beach","Upper Freehold","Wall","West Long Branch"],"Morris":["Boonton","Boonton Twp","Butler","Chatham","Chatham Twp","Chester","Chester Twp","Denville","Dover","East Hanover","Florham Park","Hanover","Harding","Kinnelon","Lincoln Park","Madison","Mendham","Mendham Twp","Mine Hill","Montville","Morris Twp","Morris Plains","Morristown","Mountain Lakes","Mount Arlington","Mount Olive","Netcong","Parsippany-Troy Hills","Long Hill","Pequannock","Randolph","Riverdale","Rockaway","Rockaway Twp","Roxbury","Victory Gardens","Washington Twp","Wharton"],"Ocean":["Barnegat Light","Bay Head","Beach Haven","Beachwood","Berkeley","Brick","Toms River","Eagleswood","Harvey Cedars","Island Heights","Jackson","Lacey","Lakehurst","Lakewood","Lavallette","Little Egg Harbor","Long Beach","Manchester","Mantaloking","Ocean Twp","Ocean Gate","Pine Beach","Plumsted","Point Pleasant","Point Pleasant Beach","Seaside Heights","Seaside Park","Ship Bottom","South Toms River","Stafford","Surf City","Tuckerton","Barnegat"],"Passaic":["Bloomingdale","Clifton","Haledon","Hawthorne","Little Falls","North Haledon","Passaic","Paterson","Pompton Lakes","Prospect Park","Ringwood","Totowa","Wanaque","Wayne","West Milford","Woodland Park"],"Salem":["Alloway","Elmer","Elsinboro","Lower Alloways Creek","Mannington","Oldmans","Penns Grove","Pennsville","Pilesgrove","Pittsgrove","Quinton","Salem","Carneys Point","Upper Pittsgrove","Woodstown"],"Somerset":["Bedminster","Bernards","Bernardsville","Bound Brook","Branchburg","Bridgewater","Far Hills","Franklin Twp","Green Brook","Hillsborough","Manville","Millstone","Montgomery","North Plainfield","Peapack-Gladstone","Raritan","Rocky Hill","Somerville","South Bound Brook","Warren","Watchung"],"Sussex":["Andover","Andover Twp","Branchville","Byram","Frankford","Franklin","Fredon","Green","Hamburg","Hampton Twp","Hardyston","Hopatcong","Lafayette","Montague","Newton","Ogdensburg","Sandyston","Sparta","Stanhope","Stillwater","Sussex","Vernon","Walpack","Wantage"],"Union":["Berkeley Heights","Clark","Cranford","Elizabeth","Fanwood","Garwood","Hillside","Kenilworth","Linden","Mountainside","New Providence","Plainfield","Rahway","Roselle","Roselle Park","Scotch Plains","Springfield","Summit","Union","Westfield","Winfield"],"Warren":["Allamuchy","Alpha","Belvidere","Blairstown","Franklin Twp","Frelinghuysen","Greenwich","Hackettstown","Hardwick","Harmony","Hope","Independence","Knowlton","Liberty","Lopatcong","Mansfield","Oxford","Phillipsburg","Pohatcong","Washington","Washington Twp","White"]};
+
+function gD(n,co){
+  if(K[n])return{h:K[n].h,v:K[n].v,claimed:claimedSet.has(n),co:co,la:K[n].la,lo:K[n].lo,z:K[n].z};
+  var cd=ctyDef[co]||{h:4e3,v:3e5,la:40.2,lo:-74.5};
+  var hash=0;for(var i=0;i<n.length;i++)hash=((hash<<5)-hash)+n.charCodeAt(i);
+  hash=Math.abs(hash);
+  var hv=.5+(hash%100)/100,vv=.85+(hash%60)/200;
+  // Scatter lat/lng from county center
+  var laOff=((hash%200)-100)/1400,loOff=((hash%300)-150)/1200;
+  return{h:Math.round(cd.h*hv),v:Math.round(cd.v*vv/1e3)*1e3,claimed:claimedSet.has(n),co:co,la:cd.la+laOff,lo:cd.lo+loOff,z:null};
+}
+
+/* BUILD */
+var sel=null;
+
+function build(){
+  var c=document.getElementById('tdir'),nav=document.getElementById('cnav');
+  var html='',nh='';
+  Object.keys(counties).forEach(function(co){
+    var towns=counties[co];
+    var av=towns.filter(function(n){return!claimedSet.has(n)}).length;
+    var cl=towns.length-av;
+    nh+='<button class="cnav-btn" onclick="jump(\''+co+'\')">'+co+'</button>';
+    html+='<div class="cg" data-co="'+co+'" id="co-'+co.replace(/\s/g,'-')+'">';
+    html+='<div class="ch" onclick="tog(this)"><div class="ch-l"><span class="chev">&#9654;</span><span class="cn">'+co+' County</span><span class="cc">('+towns.length+')</span></div>';
+    html+='<div class="ch-r"><span class="av">'+av+' open</span>'+(cl?' &middot; '+cl+' claimed':'')+'</div></div>';
+    html+='<div class="ct">';
+    towns.forEach(function(n){
+      var d=gD(n,co),tier=gT(d.h),price=cP(d.h,d.v);
+      var zipStr=d.z?d.z.split(',').slice(0,3).join(', ')+(d.z.split(',').length>3?' +':''):'';
+      html+='<div class="tr'+(d.claimed?' clmd':'')+'" data-n="'+n+'" data-co="'+co+'" data-p="'+price+'" data-t="'+tier+'">';
+      html+='<span class="tn">'+n+(zipStr?'<span class="zips">'+zipStr+'</span>':'')+'</span>';
+      html+='<span class="tm"><span class="tt t'+tier+'">T'+tier+'</span><span class="tp">$'+price+'/mo</span><span class="sd '+(d.claimed?'c':'a')+'"></span></span></div>';
+    });
+    html+='</div></div>';
+  });
+  c.innerHTML=html;nav.innerHTML=nh;
+  c.querySelectorAll('.tr').forEach(function(r){
+    r.addEventListener('click',function(){
+      pick(this.getAttribute('data-n'),this.getAttribute('data-co'));
+      c.querySelectorAll('.tr').forEach(function(x){x.classList.remove('sel')});
+      this.classList.add('sel');
+    });
+  });
+}
+
+function tog(h){h.parentElement.classList.toggle('open')}
+function jump(co){var e=document.getElementById('co-'+co.replace(/\s/g,'-'));if(e){if(!e.classList.contains('open'))e.classList.add('open');e.scrollIntoView({behavior:'smooth',block:'start'})}}
+
+/* FILTER */
+document.getElementById('fi').addEventListener('input',function(){
+  var q=this.value.trim().toLowerCase(),cnt=0;
+  document.querySelectorAll('.cg').forEach(function(g){
+    var rows=g.querySelectorAll('.tr'),any=false;
+    rows.forEach(function(r){
+      var n=r.getAttribute('data-n').toLowerCase(),co=r.getAttribute('data-co').toLowerCase();
+      // Also search zip codes
+      var d=gD(r.getAttribute('data-n'),r.getAttribute('data-co'));
+      var zMatch=d.z&&d.z.toLowerCase().indexOf(q)!==-1;
+      var m=!q||n.indexOf(q)!==-1||co.indexOf(q)!==-1||zMatch;
+      r.classList.toggle('hid',!m);if(m){any=true;cnt++}
+    });
+    g.classList.toggle('hid',!any);
+    if(q){if(any)g.classList.add('open');else g.classList.remove('open')}else g.classList.remove('open');
+  });
+  document.getElementById('vc').textContent=cnt;
+});
+
+/* SORT */
+document.getElementById('ss').addEventListener('change',function(){
+  var v=this.value;
+  document.querySelectorAll('.ct').forEach(function(ct){
+    var rows=Array.from(ct.querySelectorAll('.tr'));
+    rows.sort(function(a,b){
+      if(v==='name')return a.getAttribute('data-n').localeCompare(b.getAttribute('data-n'));
+      if(v==='name-desc')return b.getAttribute('data-n').localeCompare(a.getAttribute('data-n'));
+      if(v==='price-asc')return+a.getAttribute('data-p')-(+b.getAttribute('data-p'));
+      if(v==='price-desc')return+b.getAttribute('data-p')-(+a.getAttribute('data-p'));
+      if(v==='tier-asc')return+a.getAttribute('data-t')-(+b.getAttribute('data-t'));
+      if(v==='tier-desc')return+b.getAttribute('data-t')-(+a.getAttribute('data-t'));
+      return 0;
+    });
+    rows.forEach(function(r){ct.appendChild(r)});
+  });
+});
+
+/* PICK TOWN */
+function pick(n,co){
+  sel=n;var d=gD(n,co),tier=gT(d.h),mo=cP(d.h,d.v),yr=mo*11;
+  document.getElementById('xn').textContent=n+', NJ';
+  var b=document.getElementById('xb');b.textContent='Tier '+tier;b.className='tc-badge t'+tier;
+  document.getElementById('xco').textContent=co+' County';
+  // Show zip codes — real data for known towns, link for others
+  var zipEl=document.getElementById('xz');
+  if(d.z){
+    zipEl.innerHTML='ZIP: '+d.z;
+  }else{
+    zipEl.innerHTML='<a href="https://www.unitedstateszipcodes.org/'+encodeURIComponent(n.toLowerCase().replace(/\s+/g,'-'))+'-nj/" target="_blank" style="color:var(--accent);text-decoration:none">Look up ZIP codes for '+n+' &rarr;</a>';
+  }
+  document.getElementById('xh').textContent=d.h.toLocaleString();
+  document.getElementById('xv').textContent='$'+d.v.toLocaleString();
+  document.getElementById('xl').textContent=eL(d.h);
+  document.getElementById('xm').textContent='$'+mo+'/mo';
+  document.getElementById('xy').innerHTML='$'+yr.toLocaleString()+'/yr <span>(1 month free)</span>';
+  document.getElementById('xs').innerHTML=d.claimed?'<div class="st-dot c"></div>Claimed':'<div class="st-dot a"></div>Available';
+  var btn=document.getElementById('xbtn');btn.textContent=d.claimed?'Join Waitlist':'Claim This Territory';btn.className=d.claimed?'btn-claim c':'btn-claim a';
+  document.getElementById('tcard').classList.add('vis');
+  document.getElementById('tph').style.display='none';
+  // Coverage area link
+  var townSlug=n.toLowerCase().replace(/\s+/g,'-');
+  document.getElementById('xmap-link').href='https://www.unitedstateszipcodes.org/'+encodeURIComponent(townSlug)+'-nj/';
+  showMap(d.la,d.lo,n);
+}
+
+/* MINI MAP — simple OpenStreetMap iframe embed, works everywhere */
+function showMap(lat,lng,name){
+  var el=document.getElementById('mini-map');
+  var zoom=13;
+  // OpenStreetMap embed URL — no API key, no JS library, just works
+  el.innerHTML='<iframe width="100%" height="100%" frameborder="0" scrolling="no" style="border:0;border-radius:8px;filter:saturate(0.4) brightness(0.85)" src="https://www.openstreetmap.org/export/embed.html?bbox='+(lng-0.03)+','+(lat-0.02)+','+(lng+0.03)+','+(lat+0.02)+'&layer=mapnik&marker='+lat+','+lng+'"></iframe>';
+}
+
+/* MODAL */
+function openModal(){
+  if(!sel)return;
+  document.getElementById('mti').textContent=claimedSet.has(sel)?'Join Waitlist':'Claim Territory';
+  document.getElementById('mto').value=sel+', NJ';
+  document.getElementById('mfv').style.display='block';
+  document.getElementById('msuc').style.display='none';
+  document.getElementById('modal').classList.add('act');
+}
+function closeModal(){document.getElementById('modal').classList.remove('act')}
+function submitClaim(){
+  if(!document.getElementById('mb').value.trim()||!document.getElementById('mn').value.trim()||!document.getElementById('mp').value.trim()||!document.getElementById('me').value.trim()){alert('Please fill in all fields.');return}
+  document.getElementById('mfv').style.display='none';
+  document.getElementById('stn').textContent=sel+', NJ';
+  document.getElementById('msuc').style.display='block';
+  ['mb','mn','mp','me'].forEach(function(id){document.getElementById(id).value=''});
+}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal()});
+
+document.addEventListener('DOMContentLoaded',build);
+</script>
+</body>
+</html>
