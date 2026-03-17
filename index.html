@@ -19,11 +19,11 @@
 --tr:200ms ease}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:400;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
- 
+
 #header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(15,15,15,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--accent);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between}
 .logo{font-family:var(--fh);font-weight:800;font-size:22px;color:var(--accent);letter-spacing:2px;text-transform:uppercase}
 .hphone{font-family:'Courier New',monospace;font-size:16px;color:var(--accent);letter-spacing:1px;font-weight:600}
- 
+
 #hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px 60px;position:relative}
 #hero::before{content:'';position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(245,166,35,.06) 0%,transparent 70%);pointer-events:none}
 .hh{font-family:var(--fh);font-weight:800;font-size:clamp(40px,7vw,80px);line-height:1.05;max-width:800px;text-transform:uppercase;letter-spacing:1px;margin-bottom:20px;position:relative}
@@ -33,16 +33,16 @@ body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:40
 .hs-lbl{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:2px}
 .scroll-cue{margin-top:20px;animation:bounce 2s infinite;color:var(--muted);font-size:28px;cursor:pointer;user-select:none}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
- 
+
 #dir{padding:60px 24px 80px}
 .dh{text-align:center;margin-bottom:32px}
 .dt{font-family:var(--fh);font-weight:700;font-size:36px;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
 .ds{color:var(--muted);font-size:15px}
- 
+
 .cnav{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:950px;margin:0 auto 20px;padding-bottom:16px;border-bottom:1px solid var(--border)}
 .cnav-btn{padding:5px 10px;font-size:11px;font-family:var(--fh);font-weight:700;text-transform:uppercase;letter-spacing:1px;background:var(--surface);border:1px solid var(--border);border-radius:4px;color:var(--muted);cursor:pointer;transition:all var(--tr);white-space:nowrap}
 .cnav-btn:hover{border-color:var(--accent);color:var(--accent)}
- 
+
 .ctrls{max-width:720px;margin:0 auto 12px;position:sticky;top:56px;z-index:800;background:rgba(15,15,15,.97);backdrop-filter:blur(12px);padding:12px 0;display:flex;gap:10px;align-items:center}
 .fw{flex:1;position:relative}
 #fi{width:100%;padding:12px 16px 12px 38px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--fb);font-size:14px;outline:none;transition:border-color var(--tr)}
@@ -52,7 +52,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:40
 #ss{padding:12px 10px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--fb);font-size:12px;outline:none;cursor:pointer}
 .fc{text-align:center;font-size:12px;color:var(--muted);margin-bottom:16px}
 .fc span{color:var(--accent);font-weight:600}
- 
+
 .dl{display:flex;gap:24px;max-width:1200px;margin:0 auto;align-items:flex-start}
 .td{flex:1;min-width:0}
 .cg{margin-bottom:4px;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--surface)}
@@ -68,7 +68,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:40
 .ch-r .av{color:var(--success)}
 .ct{max-height:0;overflow:hidden;transition:max-height 350ms ease}
 .cg.open .ct{max-height:9999px}
- 
+
 .tr{display:flex;justify-content:space-between;align-items:center;padding:9px 16px 9px 40px;cursor:pointer;transition:background var(--tr);border-top:1px solid rgba(42,42,42,.4)}
 .tr:hover{background:var(--sh)}
 .tr.sel{background:rgba(245,166,35,.1)}
@@ -81,13 +81,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:40
 .tp{color:var(--muted);font-weight:500;white-space:nowrap}
 .sd{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 .sd.a{background:var(--success);box-shadow:0 0 6px rgba(46,204,113,.4)}.sd.c{background:var(--danger)}
- 
+
 /* TERRITORY CARD */
 .tpanel{width:380px;flex-shrink:0;position:sticky;top:110px}
 .tcard{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;display:none}
 .tcard.vis{display:block}
 .tph{display:flex;align-items:center;justify-content:center;min-height:300px;color:var(--muted);font-size:14px;text-align:center;background:var(--surface);border:1px dashed var(--border);border-radius:12px;padding:28px;line-height:1.8}
- 
+
 .tc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;gap:10px}
 .tc-name{font-family:var(--fh);font-weight:700;font-size:24px;text-transform:uppercase;letter-spacing:1px;line-height:1.2}
 .tc-badge{font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;flex-shrink:0;margin-top:2px}
@@ -103,12 +103,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:40
 .tc-status{display:flex;align-items:center;gap:8px;margin:12px 0;font-size:13px;font-weight:500}
 .st-dot{width:8px;height:8px;border-radius:50%}
 .st-dot.a{background:var(--success);box-shadow:0 0 8px rgba(46,204,113,.4)}.st-dot.c{background:var(--danger)}
- 
- 
+
+
 .btn-claim{width:100%;padding:13px;font-family:var(--fh);font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:2px;border:none;border-radius:8px;cursor:pointer;transition:all var(--tr)}
 .btn-claim.a{background:var(--accent);color:#000}.btn-claim.a:hover{background:#ffb838;transform:translateY(-1px);box-shadow:0 4px 20px rgba(245,166,35,.3)}
 .btn-claim.c{background:transparent;color:var(--muted);border:1px solid var(--border)}.btn-claim.c:hover{border-color:var(--muted);color:var(--text)}
- 
+
 /* HOW IT WORKS, PRICING, FOOTER */
 #hiw{padding:100px 24px;text-align:center}
 .st{font-family:var(--fh);font-weight:700;font-size:36px;text-transform:uppercase;letter-spacing:2px;margin-bottom:60px}
@@ -117,12 +117,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:40
 .step-n{font-family:var(--fh);font-weight:800;font-size:48px;color:var(--accent);line-height:1;margin-bottom:16px}
 .step-t{font-family:var(--fh);font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
 .step-d{font-size:14px;color:var(--muted);line-height:1.6}
- 
+
 /* Territory rule box */
 .rule-box{max-width:700px;margin:60px auto 0;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:24px 28px}
 .rule-title{font-family:var(--fh);font-weight:700;font-size:16px;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px}
 .rule-text{font-size:14px;color:var(--text);line-height:1.6}
- 
+
 #pricing{padding:60px 24px 100px}
 .tg{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1000px;margin:0 auto}
 .tc2{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px 20px;text-align:center;transition:border-color var(--tr),transform var(--tr)}
@@ -133,9 +133,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:40
 .tc2-p{font-family:var(--fh);font-weight:700;font-size:30px;margin-bottom:12px}
 .tc2-d{font-size:12px;color:var(--muted);line-height:1.5}
 .pn{text-align:center;font-size:13px;color:var(--muted);margin-top:28px;font-style:italic}
- 
+
 #footer{border-top:1px solid var(--accent);padding:24px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);flex-wrap:wrap;gap:12px}
- 
+
 /* MODAL */
 .mo{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);z-index:2000;display:none;align-items:center;justify-content:center;padding:24px}
 .mo.act{display:flex}
@@ -153,15 +153,15 @@ body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:40
 .msuc{display:none;text-align:center;padding:20px 0}
 .msuc .ck{font-size:48px;margin-bottom:16px;color:var(--success)}
 .msuc .hl{color:var(--accent);font-weight:600}
- 
+
 @media(max-width:900px){.dl{flex-direction:column}.tpanel{width:100%;position:static}.tg{grid-template-columns:repeat(2,1fr)}.steps{flex-direction:column;gap:32px}}
 @media(max-width:600px){.hh{font-size:36px}.tg{grid-template-columns:1fr}#footer{flex-direction:column;text-align:center}.hphone{font-size:13px}.cnav{gap:4px}.cnav-btn{padding:4px 7px;font-size:10px}}
 </style>
 </head>
 <body>
- 
+
 <header id="header"><div class="logo">Ground Control</div><div class="hphone">866-SEALCOAT</div></header>
- 
+
 <section id="hero">
 <h1 class="hh">Claim Your Territory Before Someone Else Does</h1>
 <p class="hsub">One contractor per town. Exclusive inbound leads routed directly to you via 866-SEALCOAT.</p>
@@ -173,7 +173,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:40
 </div>
 <div class="scroll-cue" onclick="document.getElementById('dir').scrollIntoView({behavior:'smooth'})">&#8595;</div>
 </section>
- 
+
 <section id="dir">
 <div class="dh"><div class="dt">Find Your Town</div><div class="ds">Every municipality in New Jersey. One contractor per town.</div></div>
 <div class="cnav" id="cnav"></div>
@@ -196,10 +196,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:40
 <a id="xmap-link" href="#" target="_blank" rel="noopener" style="display:block;text-align:center;font-size:12px;color:var(--accent);margin-bottom:8px;text-decoration:none;opacity:0.8">View full coverage area &rarr;</a>
 <hr class="tc-div">
 <div class="tc-row"><span class="tc-lbl">Households</span><span class="tc-val" id="xh"></span></div>
-<div class="tc-row"><span class="tc-lbl">Homeowners</span><span class="tc-val" id="xho"></span></div>
 <div class="tc-row"><span class="tc-lbl">Median Home Value</span><span class="tc-val" id="xv"></span></div>
 <div class="tc-row"><span class="tc-lbl">Median Income</span><span class="tc-val" id="xi"></span></div>
-<div class="tc-row"><span class="tc-lbl">Homeownership Rate</span><span class="tc-val" id="xr"></span></div>
 <div class="tc-row"><span class="tc-lbl">Est. Monthly Leads</span><span class="tc-val" id="xl"></span></div>
 <div class="tc-price-box">
 <div class="tc-row"><span class="tc-lbl">Monthly</span><span class="tc-price" id="xm"></span></div>
@@ -212,7 +210,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:40
 </div>
 </div>
 </section>
- 
+
 <section id="hiw">
 <h2 class="st">How It Works</h2>
 <div class="steps">
@@ -225,20 +223,20 @@ body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:40
 <div class="rule-text">When a ZIP code crosses two town lines, it belongs to the town with the majority of its population. One ZIP, one owner — always.</div>
 </div>
 </section>
- 
+
 <section id="pricing">
 <h2 class="st">Territory Pricing</h2>
 <div class="tg">
-<div class="tc2"><div class="tc2-l">Tier 1</div><div class="tc2-r">Under 5K homes</div><div class="tc2-p">$99<span style="font-size:16px;color:var(--muted)">/mo</span></div><div class="tc2-d">Small towns, rural areas. Low volume entry point.</div></div>
-<div class="tc2"><div class="tc2-l">Tier 2</div><div class="tc2-r">5K – 15K homes</div><div class="tc2-p">$199<span style="font-size:16px;color:var(--muted)">/mo</span></div><div class="tc2-d">Mid-size suburbs. Solid lead flow.</div></div>
-<div class="tc2"><div class="tc2-l">Tier 3</div><div class="tc2-r">15K – 40K homes</div><div class="tc2-p">$349<span style="font-size:16px;color:var(--muted)">/mo</span></div><div class="tc2-d">Established suburbs. High density.</div></div>
-<div class="tc2"><div class="tc2-l">Tier 4</div><div class="tc2-r">40K+ homes</div><div class="tc2-p">$599<span style="font-size:16px;color:var(--muted)">/mo</span></div><div class="tc2-d">Dense townships. Maximum volume.</div></div>
+<div class="tc2"><div class="tc2-l">Tier 1</div><div class="tc2-r">Under 5K homes</div><div class="tc2-p">$199<span style="font-size:16px;color:var(--muted)">/mo</span></div><div class="tc2-d">Small towns, rural areas. Low volume entry point.</div></div>
+<div class="tc2"><div class="tc2-l">Tier 2</div><div class="tc2-r">5K – 15K homes</div><div class="tc2-p">$349<span style="font-size:16px;color:var(--muted)">/mo</span></div><div class="tc2-d">Mid-size suburbs. Solid lead flow.</div></div>
+<div class="tc2"><div class="tc2-l">Tier 3</div><div class="tc2-r">15K – 40K homes</div><div class="tc2-p">$549<span style="font-size:16px;color:var(--muted)">/mo</span></div><div class="tc2-d">Established suburbs. High density.</div></div>
+<div class="tc2"><div class="tc2-l">Tier 4</div><div class="tc2-r">40K+ homes</div><div class="tc2-p">$849<span style="font-size:16px;color:var(--muted)">/mo</span></div><div class="tc2-d">Dense townships. Maximum volume.</div></div>
 </div>
 <div class="pn">Final price adjusts based on median home value, household income, and homeownership rate in your area.</div>
 </section>
- 
+
 <footer id="footer"><div>Ground Control IP LLC</div><div style="opacity:.6">Powered by Perpetual Concierge</div><div>866-SEALCOAT</div></footer>
- 
+
 <div class="mo" id="modal">
 <div class="mc">
 <button class="mx" onclick="closeModal()">&times;</button>
@@ -254,17 +252,16 @@ body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:40
 <div class="msuc" id="msuc"><div class="ck">&#10003;</div><p>You're on the list for <span class="hl" id="stn"></span>.<br>We'll reach out within 24 hours.</p></div>
 </div>
 </div>
- 
+
 <script>
-/* ─── TERRITORY PRICING ENGINE (4 variables) ─── */
+/* ─── TERRITORY PRICING ENGINE (3 variables) ─── */
 function gT(h){if(h<5e3)return 1;if(h<15e3)return 2;if(h<4e4)return 3;return 4}
-function bP(t){return{1:99,2:199,3:349,4:599}[t]}
+function bP(t){return{1:199,2:349,3:549,4:849}[t]}
 function hvM(v){if(v<3e5)return 1;if(v<5e5)return 1.2;if(v<75e4)return 1.4;return 1.6}
 function incM(i){if(i<6e4)return .9;if(i<9e4)return 1;if(i<13e4)return 1.15;return 1.3}
-function ownM(r){if(r<35)return .8;if(r<55)return .95;if(r<70)return 1.05;return 1.2}
-function cP(h,v,i,r){return Math.round(bP(gT(h))*hvM(v)*incM(i)*ownM(r))}
-function eL(h,r){var a=Math.round(h*(r/100));return Math.max(1,Math.round(a/250))+'–'+Math.max(2,Math.round(a/150))}
- 
+function cP(h,v,i){return Math.round(bP(gT(h))*hvM(v)*incM(i))}
+function eL(h){return Math.max(1,Math.round(h/250))+'–'+Math.max(2,Math.round(h/150))}
+
 /* KNOWN TOWNS — 50 NJ municipalities with 4 Census variables + lat/lng + zips */
 var K={
 "Newark":{h:104000,v:280000,i:37000,r:22,la:40.735,lo:-74.172,z:"07101,07102,07103,07104,07105,07106,07107,07108,07112",cl:1},
@@ -320,18 +317,18 @@ var K={
 "Kearny":{h:14800,v:340000,i:58000,r:44,la:40.764,lo:-74.145,z:"07032",cl:0},
 "Harrison":{h:9200,v:360000,i:54000,r:28,la:40.747,lo:-74.156,z:"07029",cl:0}
 };
- 
+
 // Derive claimed set from K data
 var claimedSet=new Set();
 Object.keys(K).forEach(function(n){if(K[n].cl)claimedSet.add(n)});
- 
+
 /* Complete NJ municipality → ZIP code mapping (544 towns) */
 var ZIPS={"Aberdeen":"07747","Absecon":"08201","Alexandria":"08848","Allamuchy":"07820","Allendale":"07401","Allenhurst":"07711","Allentown":"08501","Alloway":"08001","Alpha":"08865","Alpine":"07620","Andover":"07821","Andover Twp":"07821","Asbury Park":"07712","Atlantic City":"08401","Atlantic Highlands":"07716","Audubon":"08106","Audubon Park":"08106","Avalon":"08202","Avon-by-the-Sea":"07717","Barnegat":"08005","Barnegat Light":"08006","Barrington":"08007","Bass River":"08087","Bay Head":"08742","Bayonne":"07002","Beach Haven":"08008","Beachwood":"08722","Bedminster":"07921","Belleville":"07109","Bellmawr":"08031","Belmar":"07719","Belvidere":"07823","Bergenfield":"07621","Berkeley":"08721","Berkeley Heights":"07922","Berlin":"08009","Berlin Twp":"08009","Bernards":"07920","Bernardsville":"07924","Bethlehem":"08802","Beverly":"08010","Blairstown":"07825","Bloomfield":"07003","Bloomingdale":"07403","Bloomsbury":"08804","Bogota":"07603","Boonton":"07005","Boonton Twp":"07005","Bordentown":"08505","Bordentown Twp":"08505","Bound Brook":"08805","Bradley Beach":"07720","Branchburg":"08876","Branchville":"07826","Brick":"08723,08724","Bridgeton":"08302","Bridgewater":"08807","Brielle":"08730","Brigantine":"08203","Brooklawn":"08030","Buena":"08310","Buena Vista":"08310","Burlington City":"08016","Burlington Twp":"08016","Butler":"07405","Byram":"07821","Caldwell":"07006","Califon":"07830","Camden":"08101,08102,08103,08104,08105","Cape May":"08204","Cape May Point":"08212","Carlstadt":"07072","Carneys Point":"08069","Carteret":"07008","Cedar Grove":"07009","Chatham":"07928","Chatham Twp":"07928","Cherry Hill":"08002,08003,08034","Chesilhurst":"08089","Chester":"07930","Chester Twp":"07930","Chesterfield":"08515","Cinnaminson":"08077","Clark":"07066","Clayton":"08312","Clementon":"08021","Cliffside Park":"07010","Clifton":"07011,07012,07013,07014","Clinton":"08809","Clinton Twp":"08809","Closter":"07624","Collingswood":"08108","Colts Neck":"07722","Commercial":"08302","Corbin City":"08270","Cranbury":"08512","Cranford":"07016","Cresskill":"07626","Deal":"07723","Deerfield":"08302","Delanco":"08075","Delaware":"08822","Delran":"08075","Demarest":"07627","Dennis":"08214","Denville":"07834","Deptford":"08096","Dover":"07801","Downe":"08311","Dumont":"07628","Dunellen":"08812","Eagleswood":"08092","East Amwell":"08551","East Brunswick":"08816","East Greenwich":"08056","East Hanover":"07936","East Newark":"07029","East Orange":"07017,07018,07019","East Rutherford":"07073","East Windsor":"08520","Eastampton":"08060","Eatontown":"07724","Edgewater":"07020","Edgewater Park":"08010","Edison":"08817,08818,08820","Egg Harbor City":"08215","Egg Harbor Twp":"08234","Elizabeth":"07201,07202,07206,07208","Elk":"08028","Elmer":"08318","Elmwood Park":"07407","Elsinboro":"08079","Emerson":"07630","Englewood":"07631","Englewood Cliffs":"07632","Englishtown":"07726","Essex Fells":"07021","Estell Manor":"08319","Evesham":"08053","Ewing":"08618","Fair Haven":"07704","Fair Lawn":"07410","Fairfield":"07004","Fairview":"07022","Fanwood":"07023","Far Hills":"07931","Farmingdale":"07727","Fieldsboro":"08505","Flemington":"08822","Florence":"08518","Florham Park":"07932","Folsom":"08037","Fort Lee":"07024","Frankford":"07826","Franklin":"07416","Franklin Lakes":"07417","Franklin Twp":"08886","Fredon":"07860","Freehold":"07728","Freehold Twp":"07728","Frelinghuysen":"07821","Frenchtown":"08825","Galloway":"08205","Garfield":"07026","Garwood":"07027","Gibbsboro":"08026","Glassboro":"08028","Glen Gardner":"08826","Glen Ridge":"07028","Glen Rock":"07452","Gloucester City":"08030","Gloucester Twp":"08012,08029","Green":"07821","Green Brook":"08812","Greenwich":"08886","Guttenberg":"07093","Hackensack":"07601,07602","Hackettstown":"07840","Haddon Heights":"08035","Haddon Twp":"08108","Haddonfield":"08033","Hainesport":"08036","Haledon":"07508","Hamburg":"07419","Hamilton":"08609,08610,08619,08620","Hamilton Twp":"08330","Hammonton":"08037","Hampton":"08827","Hampton Twp":"07860","Hanover":"07981","Harding":"07976","Hardwick":"07825","Hardyston":"07419","Harmony":"08865","Harrington Park":"07640","Harrison":"07029","Harvey Cedars":"08008","Hasbrouck Heights":"07604","Haworth":"07641","Hawthorne":"07506","Hazlet":"07730","Helmetta":"08828","Hi-Nella":"08083","High Bridge":"08829","Highland Park":"08904","Highlands":"07732","Hightstown":"08520","Hillsborough":"08844","Hillsdale":"07642","Hillside":"07205","Ho-Ho-Kus":"07423","Hoboken":"07030","Holland":"08848","Holmdel":"07733","Hopatcong":"07843","Hope":"07844","Hopewell":"08525","Hopewell Twp":"08525","Howell":"07731","Independence":"07838","Interlaken":"07712","Irvington":"07111","Island Heights":"08732","Jackson":"08527","Jamesburg":"08831","Jersey City":"07097,07302,07303,07304,07305,07306,07307,07308,07310","Keansburg":"07734","Kearny":"07032","Kenilworth":"07033","Keyport":"07735","Kingwood":"08825","Kinnelon":"07405","Knowlton":"07832","Lacey":"08731","Lafayette":"07848","Lake Como":"07719","Lakehurst":"08733","Lakewood":"08701","Lambertville":"08530","Laurel Springs":"08021","Lavallette":"08735","Lawnside":"08045","Lawrence":"08648","Lebanon":"08833","Lebanon Twp":"08826","Leonia":"07605","Liberty":"07838","Lincoln Park":"07035","Linden":"07036","Lindenwold":"08021","Linwood":"08221","Little Egg Harbor":"08087","Little Falls":"07424","Little Ferry":"07643","Little Silver":"07739","Livingston":"07039","Loch Arbour":"07711","Lodi":"07644","Logan":"08085","Long Beach":"08008","Long Branch":"07740","Long Hill":"07933","Longport":"08403","Lopatcong":"08865","Lower Alloways Creek":"08079","Lower Twp":"08204","Lumberton":"08048","Lyndhurst":"07071","Madison":"07940","Magnolia":"08049","Mahwah":"07430","Manalapan":"07726","Manasquan":"08736","Manchester":"08759","Mannington":"08079","Mansfield":"07840","Mantaloking":"08738","Mantua":"08051","Manville":"08835","Maple Shade":"08052","Maplewood":"07040","Margate City":"08402","Marlboro":"07746","Matawan":"07747","Maurice River":"08332","Maywood":"07607","Medford":"08055","Medford Lakes":"08055","Mendham":"07945","Mendham Twp":"07945","Merchantville":"08109","Metuchen":"08840","Middle Twp":"08210","Middlesex":"08846","Middletown":"07748","Midland Park":"07432","Milford":"08848","Millburn":"07041","Millstone":"08844","Milltown":"08850","Millville":"08332","Mine Hill":"07803","Monmouth Beach":"07750","Monroe":"08831","Montague":"07827","Montclair":"07042,07043","Montgomery":"08502","Montvale":"07645","Montville":"07045","Moonachie":"07074","Moorestown":"08057","Morris Plains":"07950","Morris Twp":"07960","Morristown":"07961,07963","Mount Arlington":"07856","Mount Ephraim":"08059","Mount Holly":"08060","Mount Laurel":"08054","Mount Olive":"07828","Mountain Lakes":"07046","Mountainside":"07092","Mullica":"08037","National Park":"08063","Neptune":"07753","Neptune City":"07753","Netcong":"07857","New Brunswick":"08901,08903","New Hanover":"08562","New Milford":"07646","New Providence":"07974","Newark":"07101,07102,07103,07104,07105,07106,07107,07108,07112","Newfield":"08344","Newton":"07860","North Arlington":"07031","North Bergen":"07047","North Brunswick":"08902","North Caldwell":"07006","North Haledon":"07508","North Hanover":"08562","North Plainfield":"07060","Northfield":"08225","Northvale":"07647","Norwood":"07648","Nutley":"07110","Oakland":"07436","Oaklyn":"08107","Ocean City":"08226","Ocean Gate":"08740","Ocean Twp":"08758","Oceanport":"07757","Ogdensburg":"07439","Old Bridge":"08857","Old Tappan":"07675","Oldmans":"08067","Oradell":"07649","Orange":"07050","Oxford":"07863","Palisades Park":"07650","Palmyra":"08065","Paramus":"07652","Park Ridge":"07656","Parsippany-Troy Hills":"07054","Passaic":"07055","Paterson":"07501,07502,07503,07504,07505,07509,07513","Paulsboro":"08066","Peapack-Gladstone":"07934","Pemberton":"08068","Pemberton Twp":"08068","Pennington":"08534","Penns Grove":"08069","Pennsauken":"08110","Pennsville":"08070","Pequannock":"07440","Perth Amboy":"08861,08862","Phillipsburg":"08865","Pilesgrove":"08098","Pine Beach":"08741","Pine Hill":"08021","Pine Valley":"08021","Piscataway":"08854,08855","Pitman":"08071","Pittsgrove":"08318","Plainfield":"07062,07063","Plainsboro":"08536","Pleasantville":"08232","Plumsted":"08514","Pohatcong":"08865","Point Pleasant":"08742","Point Pleasant Beach":"08742","Pompton Lakes":"07442","Port Republic":"08241","Princeton":"08540,08542,08544","Prospect Park":"07508","Quinton":"08072","Rahway":"07065","Ramsey":"07446","Randolph":"07869","Raritan":"08869","Raritan Twp":"08822","Readington":"08889","Red Bank":"07701","Ridgefield":"07657","Ridgefield Park":"07660","Ridgewood":"07450,07451","Ringwood":"07456","River Edge":"07661","River Vale":"07675","Riverdale":"07457","Riverside":"08075","Riverton":"08077","Rochelle Park":"07662","Rockaway":"07866","Rockaway Twp":"07866","Rockleigh":"07647","Rocky Hill":"08553","Roosevelt":"08555","Roseland":"07068","Roselle":"07203","Roselle Park":"07204","Roxbury":"07876","Rumson":"07760","Runnemede":"08078","Rutherford":"07070","Saddle Brook":"07663","Saddle River":"07458","Salem":"08079","Sandyston":"07826","Sayreville":"08871,08872","Scotch Plains":"07076","Sea Bright":"07760","Sea Girt":"08750","Sea Isle City":"08243","Seaside Heights":"08751","Seaside Park":"08752","Secaucus":"07094","Shamong":"08088","Shiloh":"08353","Ship Bottom":"08008","Shrewsbury":"07702","Shrewsbury Twp":"07702","Somerdale":"08083","Somers Point":"08244","Somerville":"08876","South Amboy":"08879","South Bound Brook":"08880","South Brunswick":"08852","South Hackensack":"07606","South Harrison":"08062","South Orange":"07079","South Plainfield":"07080","South River":"08882","South Toms River":"08757","Southampton":"08088","Sparta":"07871","Spotswood":"08884","Spring Lake":"07762","Spring Lake Heights":"07762","Springfield":"07081","Stafford":"08050","Stanhope":"07874","Stillwater":"07860","Stockton":"08559","Stone Harbor":"08247","Stow Creek":"08302","Stratford":"08084","Summit":"07901,07902","Surf City":"08008","Sussex":"07461","Swedesboro":"08085","Tabernacle":"08088","Tavistock":"08033","Teaneck":"07666","Tenafly":"07670","Teterboro":"07608","Tewksbury":"07979","Tinton Falls":"07724","Toms River":"08753,08755","Totowa":"07512","Trenton":"08608,08611,08638","Tuckerton":"08087","Union":"07083","Union Beach":"07735","Union City":"07087","Union Twp":"08827","Upper Deerfield":"08302","Upper Freehold":"08501","Upper Pittsgrove":"08318","Upper Saddle River":"07458","Upper Twp":"08270","Ventnor City":"08406","Vernon":"07462","Verona":"07044","Victory Gardens":"07801","Vineland":"08360,08361","Voorhees":"08043","Waldwick":"07463","Wall":"07719","Wallington":"07057","Walpack":"07881","Wanaque":"07465","Wantage":"07461","Warren":"07059","Washington":"07882","Washington Twp":"07882","Watchung":"07069","Waterford":"08089","Wayne":"07470,07474","Weehawken":"07086","Wenonah":"08090","West Amwell":"08530","West Caldwell":"07006","West Cape May":"08204","West Deptford":"08096","West Long Branch":"07764","West Milford":"07480","West New York":"07093","West Orange":"07052","West Wildwood":"08260","West Windsor":"08550","Westampton":"08060","Westfield":"07090,07091","Westville":"08093","Westwood":"07675","Weymouth":"08330","Wharton":"07885","White":"07823","Wildwood":"08260","Wildwood Crest":"08260","Willingboro":"08046","Winfield":"07036","Winslow":"08095","Wood-Ridge":"07075","Woodbine":"08270","Woodbridge":"07095,07096","Woodbury":"08096","Woodbury Heights":"08097","Woodcliff Lake":"07677","Woodland":"08019","Woodland Park":"07424","Woodlynne":"08107","Woodstown":"08098","Woolwich":"08085","Wrightstown":"08562","Wyckoff":"07481"};
- 
+
 var ctyDef={"Atlantic":{h:4200,v:240000,la:39.45,lo:-74.57},"Bergen":{h:5800,v:480000,la:40.96,lo:-74.07},"Burlington":{h:5500,v:310000,la:39.88,lo:-74.83},"Camden":{h:5200,v:260000,la:39.90,lo:-74.97},"Cape May":{h:3800,v:340000,la:39.10,lo:-74.82},"Cumberland":{h:4000,v:190000,la:39.37,lo:-75.13},"Essex":{h:8000,v:380000,la:40.78,lo:-74.22},"Gloucester":{h:5000,v:280000,la:39.72,lo:-75.14},"Hudson":{h:12000,v:420000,la:40.74,lo:-74.06},"Hunterdon":{h:3200,v:440000,la:40.56,lo:-74.91},"Mercer":{h:7000,v:350000,la:40.28,lo:-74.70},"Middlesex":{h:8000,v:380000,la:40.44,lo:-74.39},"Monmouth":{h:5500,v:420000,la:40.29,lo:-74.12},"Morris":{h:5000,v:460000,la:40.86,lo:-74.54},"Ocean":{h:6000,v:320000,la:39.94,lo:-74.20},"Passaic":{h:8000,v:340000,la:40.99,lo:-74.30},"Salem":{h:2800,v:210000,la:39.58,lo:-75.35},"Somerset":{h:5500,v:420000,la:40.56,lo:-74.62},"Sussex":{h:3500,v:310000,la:41.13,lo:-74.69},"Union":{h:8000,v:380000,la:40.66,lo:-74.31},"Warren":{h:3000,v:280000,la:40.86,lo:-75.01}};
- 
+
 var counties={"Atlantic":["Absecon","Atlantic City","Brigantine","Buena","Buena Vista","Corbin City","Egg Harbor City","Egg Harbor Twp","Estell Manor","Folsom","Galloway","Hamilton Twp","Hammonton","Linwood","Longport","Margate City","Mullica","Northfield","Pleasantville","Port Republic","Somers Point","Ventnor City","Weymouth"],"Bergen":["Allendale","Alpine","Bergenfield","Bogota","Carlstadt","Cliffside Park","Closter","Cresskill","Demarest","Dumont","Elmwood Park","East Rutherford","Edgewater","Emerson","Englewood","Englewood Cliffs","Fair Lawn","Fairview","Fort Lee","Franklin Lakes","Garfield","Glen Rock","Hackensack","Harrington Park","Hasbrouck Heights","Haworth","Hillsdale","Ho-Ho-Kus","Leonia","Little Ferry","Lodi","Lyndhurst","Mahwah","Maywood","Midland Park","Montvale","Moonachie","New Milford","North Arlington","Northvale","Norwood","Oakland","Old Tappan","Oradell","Palisades Park","Paramus","Park Ridge","Ramsey","Ridgefield","Ridgefield Park","Ridgewood","River Edge","River Vale","Rochelle Park","Rockleigh","Rutherford","Saddle Brook","Saddle River","South Hackensack","Teaneck","Tenafly","Teterboro","Upper Saddle River","Waldwick","Wallington","Washington Twp","Westwood","Woodcliff Lake","Wood-Ridge","Wyckoff"],"Burlington":["Bass River","Beverly","Bordentown","Bordentown Twp","Burlington City","Burlington Twp","Chesterfield","Cinnaminson","Delanco","Delran","Eastampton","Edgewater Park","Evesham","Fieldsboro","Florence","Hainesport","Lumberton","Mansfield","Maple Shade","Medford","Medford Lakes","Moorestown","Mount Holly","Mount Laurel","New Hanover","North Hanover","Palmyra","Pemberton","Pemberton Twp","Riverside","Riverton","Shamong","Southampton","Springfield","Tabernacle","Washington Twp","Westampton","Willingboro","Woodland","Wrightstown"],"Camden":["Audubon","Audubon Park","Barrington","Bellmawr","Berlin","Berlin Twp","Brooklawn","Camden","Cherry Hill","Chesilhurst","Clementon","Collingswood","Gibbsboro","Gloucester City","Gloucester Twp","Haddon Twp","Haddonfield","Haddon Heights","Hi-Nella","Laurel Springs","Lawnside","Lindenwold","Magnolia","Merchantville","Mount Ephraim","Oaklyn","Pennsauken","Pine Hill","Pine Valley","Runnemede","Somerdale","Stratford","Tavistock","Voorhees","Waterford","Winslow","Woodlynne"],"Cape May":["Avalon","Cape May","Cape May Point","Dennis","Lower Twp","Middle Twp","Ocean City","Sea Isle City","Stone Harbor","Upper Twp","West Cape May","West Wildwood","Wildwood","Wildwood Crest","Woodbine"],"Cumberland":["Bridgeton","Commercial","Deerfield","Downe","Fairfield","Greenwich","Hopewell","Lawrence","Maurice River","Millville","Shiloh","Stow Creek","Upper Deerfield","Vineland"],"Essex":["Belleville","Bloomfield","Caldwell","Cedar Grove","East Orange","Essex Fells","Fairfield","Glen Ridge","Irvington","Livingston","Maplewood","Millburn","Montclair","Newark","North Caldwell","Nutley","Orange","Roseland","South Orange","Verona","West Caldwell","West Orange"],"Gloucester":["Clayton","Deptford","East Greenwich","Elk","Franklin Twp","Glassboro","Greenwich","Harrison","Logan","Mantua","Monroe","National Park","Newfield","Paulsboro","Pitman","South Harrison","Swedesboro","Washington Twp","Wenonah","West Deptford","Westville","Woodbury","Woodbury Heights","Woolwich"],"Hudson":["Bayonne","East Newark","Guttenberg","Harrison","Hoboken","Jersey City","Kearny","North Bergen","Secaucus","Union City","Weehawken","West New York"],"Hunterdon":["Alexandria","Bethlehem","Bloomsbury","Califon","Clinton","Clinton Twp","Delaware","East Amwell","Flemington","Franklin Twp","Frenchtown","Glen Gardner","Hampton","High Bridge","Holland","Kingwood","Lambertville","Lebanon","Lebanon Twp","Milford","Raritan Twp","Readington","Stockton","Tewksbury","Union Twp","West Amwell"],"Mercer":["East Windsor","Ewing","Hamilton","Hightstown","Hopewell","Hopewell Twp","Lawrence","Pennington","Princeton","Trenton","Washington Twp","West Windsor"],"Middlesex":["Carteret","Cranbury","Dunellen","East Brunswick","Edison","Helmetta","Highland Park","Jamesburg","Old Bridge","Metuchen","Middlesex","Milltown","Monroe","New Brunswick","North Brunswick","Perth Amboy","Piscataway","Plainsboro","Sayreville","South Amboy","South Brunswick","South Plainfield","South River","Spotswood","Woodbridge"],"Monmouth":["Allenhurst","Allentown","Asbury Park","Atlantic Highlands","Avon-by-the-Sea","Belmar","Bradley Beach","Brielle","Colts Neck","Deal","Eatontown","Englishtown","Fair Haven","Farmingdale","Freehold","Freehold Twp","Highlands","Holmdel","Howell","Interlaken","Keansburg","Keyport","Little Silver","Loch Arbour","Long Branch","Manalapan","Manasquan","Marlboro","Matawan","Aberdeen","Middletown","Millstone","Monmouth Beach","Neptune","Neptune City","Tinton Falls","Ocean Twp","Oceanport","Hazlet","Red Bank","Roosevelt","Rumson","Sea Bright","Sea Girt","Shrewsbury","Shrewsbury Twp","Lake Como","Spring Lake","Spring Lake Heights","Union Beach","Upper Freehold","Wall","West Long Branch"],"Morris":["Boonton","Boonton Twp","Butler","Chatham","Chatham Twp","Chester","Chester Twp","Denville","Dover","East Hanover","Florham Park","Hanover","Harding","Kinnelon","Lincoln Park","Madison","Mendham","Mendham Twp","Mine Hill","Montville","Morris Twp","Morris Plains","Morristown","Mountain Lakes","Mount Arlington","Mount Olive","Netcong","Parsippany-Troy Hills","Long Hill","Pequannock","Randolph","Riverdale","Rockaway","Rockaway Twp","Roxbury","Victory Gardens","Washington Twp","Wharton"],"Ocean":["Barnegat Light","Bay Head","Beach Haven","Beachwood","Berkeley","Brick","Toms River","Eagleswood","Harvey Cedars","Island Heights","Jackson","Lacey","Lakehurst","Lakewood","Lavallette","Little Egg Harbor","Long Beach","Manchester","Mantaloking","Ocean Twp","Ocean Gate","Pine Beach","Plumsted","Point Pleasant","Point Pleasant Beach","Seaside Heights","Seaside Park","Ship Bottom","South Toms River","Stafford","Surf City","Tuckerton","Barnegat"],"Passaic":["Bloomingdale","Clifton","Haledon","Hawthorne","Little Falls","North Haledon","Passaic","Paterson","Pompton Lakes","Prospect Park","Ringwood","Totowa","Wanaque","Wayne","West Milford","Woodland Park"],"Salem":["Alloway","Elmer","Elsinboro","Lower Alloways Creek","Mannington","Oldmans","Penns Grove","Pennsville","Pilesgrove","Pittsgrove","Quinton","Salem","Carneys Point","Upper Pittsgrove","Woodstown"],"Somerset":["Bedminster","Bernards","Bernardsville","Bound Brook","Branchburg","Bridgewater","Far Hills","Franklin Twp","Green Brook","Hillsborough","Manville","Millstone","Montgomery","North Plainfield","Peapack-Gladstone","Raritan","Rocky Hill","Somerville","South Bound Brook","Warren","Watchung"],"Sussex":["Andover","Andover Twp","Branchville","Byram","Frankford","Franklin","Fredon","Green","Hamburg","Hampton Twp","Hardyston","Hopatcong","Lafayette","Montague","Newton","Ogdensburg","Sandyston","Sparta","Stanhope","Stillwater","Sussex","Vernon","Walpack","Wantage"],"Union":["Berkeley Heights","Clark","Cranford","Elizabeth","Fanwood","Garwood","Hillside","Kenilworth","Linden","Mountainside","New Providence","Plainfield","Rahway","Roselle","Roselle Park","Scotch Plains","Springfield","Summit","Union","Westfield","Winfield"],"Warren":["Allamuchy","Alpha","Belvidere","Blairstown","Franklin Twp","Frelinghuysen","Greenwich","Hackettstown","Hardwick","Harmony","Hope","Independence","Knowlton","Liberty","Lopatcong","Mansfield","Oxford","Phillipsburg","Pohatcong","Washington","Washington Twp","White"]};
- 
+
 function gD(n,co){
   var zipStr=ZIPS[n]||null;
   if(K[n])return{h:K[n].h,v:K[n].v,i:K[n].i,r:K[n].r,claimed:claimedSet.has(n),co:co,la:K[n].la,lo:K[n].lo,z:K[n].z||zipStr};
@@ -345,10 +342,10 @@ function gD(n,co){
   var estR=45+Math.round((hash%40)); // 45-85% range
   return{h:Math.round(cd.h*hv),v:Math.round(cd.v*vv/1e3)*1e3,i:estI,r:Math.min(estR,85),claimed:claimedSet.has(n),co:co,la:cd.la+laOff,lo:cd.lo+loOff,z:zipStr};
 }
- 
+
 /* BUILD */
 var sel=null;
- 
+
 function build(){
   var c=document.getElementById('tdir'),nav=document.getElementById('cnav');
   var html='',nh='';
@@ -362,7 +359,7 @@ function build(){
     html+='<div class="ch-r"><span class="av">'+av+' open</span>'+(cl?' &middot; '+cl+' claimed':'')+'</div></div>';
     html+='<div class="ct">';
     towns.forEach(function(n){
-      var d=gD(n,co),tier=gT(d.h),price=cP(d.h,d.v,d.i,d.r);
+      var d=gD(n,co),tier=gT(d.h),price=cP(d.h,d.v,d.i);
       var zipStr=d.z?d.z.split(',').slice(0,3).join(', ')+(d.z.split(',').length>3?' +':''):'';
       html+='<div class="tr'+(d.claimed?' clmd':'')+'" data-n="'+n+'" data-co="'+co+'" data-p="'+price+'" data-t="'+tier+'">';
       html+='<span class="tn">'+n+(zipStr?'<span class="zips">'+zipStr+'</span>':'')+'</span>';
@@ -379,10 +376,10 @@ function build(){
     });
   });
 }
- 
+
 function tog(h){h.parentElement.classList.toggle('open')}
 function jump(co){var e=document.getElementById('co-'+co.replace(/\s/g,'-'));if(e){if(!e.classList.contains('open'))e.classList.add('open');e.scrollIntoView({behavior:'smooth',block:'start'})}}
- 
+
 /* FILTER */
 document.getElementById('fi').addEventListener('input',function(){
   var q=this.value.trim().toLowerCase(),cnt=0;
@@ -401,7 +398,7 @@ document.getElementById('fi').addEventListener('input',function(){
   });
   document.getElementById('vc').textContent=cnt;
 });
- 
+
 /* SORT */
 document.getElementById('ss').addEventListener('change',function(){
   var v=this.value;
@@ -419,11 +416,10 @@ document.getElementById('ss').addEventListener('change',function(){
     rows.forEach(function(r){ct.appendChild(r)});
   });
 });
- 
+
 /* PICK TOWN */
 function pick(n,co){
-  sel=n;var d=gD(n,co),tier=gT(d.h),mo=cP(d.h,d.v,d.i,d.r),yr=mo*11;
-  var homeowners=Math.round(d.h*(d.r/100));
+  sel=n;var d=gD(n,co),tier=gT(d.h),mo=cP(d.h,d.v,d.i),yr=mo*11;
   document.getElementById('xn').textContent=n+', NJ';
   var b=document.getElementById('xb');b.textContent='Tier '+tier;b.className='tc-badge t'+tier;
   document.getElementById('xco').textContent=co+' County';
@@ -437,11 +433,9 @@ function pick(n,co){
   }
   // Stats
   document.getElementById('xh').textContent=d.h.toLocaleString();
-  document.getElementById('xho').textContent=homeowners.toLocaleString();
   document.getElementById('xv').textContent='$'+d.v.toLocaleString();
   document.getElementById('xi').textContent='$'+d.i.toLocaleString();
-  document.getElementById('xr').textContent=d.r+'%';
-  document.getElementById('xl').textContent=eL(d.h,d.r);
+  document.getElementById('xl').textContent=eL(d.h);
   document.getElementById('xm').textContent='$'+mo+'/mo';
   document.getElementById('xy').innerHTML='$'+yr.toLocaleString()+'/yr <span>(1 month free)</span>';
   document.getElementById('xs').innerHTML=d.claimed?'<div class="st-dot c"></div>Claimed':'<div class="st-dot a"></div>Available';
@@ -452,7 +446,7 @@ function pick(n,co){
   document.getElementById('xmap-link').href='https://www.unitedstateszipcodes.org/'+encodeURIComponent(townSlug)+'-nj/';
   showMap(d.la,d.lo,n);
 }
- 
+
 /* MINI MAP — simple OpenStreetMap iframe embed, works everywhere */
 function showMap(lat,lng,name){
   var el=document.getElementById('mini-map');
@@ -460,7 +454,7 @@ function showMap(lat,lng,name){
   // OpenStreetMap embed URL — no API key, no JS library, just works
   el.innerHTML='<iframe width="100%" height="100%" frameborder="0" scrolling="no" style="border:0;border-radius:8px;filter:saturate(0.4) brightness(0.85)" src="https://www.openstreetmap.org/export/embed.html?bbox='+(lng-0.03)+','+(lat-0.02)+','+(lng+0.03)+','+(lat+0.02)+'&layer=mapnik&marker='+lat+','+lng+'"></iframe>';
 }
- 
+
 /* MODAL */
 function openModal(){
   if(!sel)return;
@@ -480,9 +474,8 @@ function submitClaim(){
 }
 document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal()});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal()});
- 
+
 document.addEventListener('DOMContentLoaded',build);
 </script>
 </body>
 </html>
- 
